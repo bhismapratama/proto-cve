@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package CVECatalog;
+
+service CVECatalogService {
+  rpc GetAllCVEs (Empty) returns (CVEs) {};
+  rpc GetCVEByID (CVEID) returns (CVE) {};
+  rpc AddCVE (CVE) returns (Response) {};
+  rpc UpdateCVE (CVEWithID) returns (Response) {};
+  rpc DeleteCVE (CVEID) returns (Response) {};
+}
+
+message CVE {
+  string title = 2;
+  string severity = 3;
+  string platform = 4;
+}
+
+message CVEID {
+  string id = 1;
+}
+
+message CVEs {
+  repeated CVE cves = 1;
+}
+
+message CVEWithID {
+  CVEID cveId = 1;
+  CVE cve = 2;
+}
+
+message Response {
+  string code = 1;
+  string message = 2;
+  CVE cve = 3;
+}
+
+message Empty {}
